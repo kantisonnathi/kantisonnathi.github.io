@@ -1,1 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HBD JUG 🎂</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      overflow-x: hidden; overflow-y: auto;
+      display: grid;
+      place-items: center;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 20% 20%, #ffd6e7 0 8%, transparent 25%),
+        radial-gradient(circle at 80% 15%, #d8d4ff 0 7%, transparent 23%),
+        radial-gradient(circle at 50% 100%, #ffe9b8 0 10%, transparent 30%),
+        #fff8fb;
+      color: #30243a;
+    }
 
+    .scene {
+      position: relative;
+      width: min(900px, 92vw);
+      min-height: 650px;
+      padding: 35px 0;
+      display: grid;
+      place-items: center;
+    }
+
+    .card {
+      position: relative;
+      z-index: 2;
+      width: min(700px, 90%);
+      padding: 70px 45px 65px;
+      text-align: center;
+      border: 3px solid rgba(255,255,255,.9);
+      border-radius: 36px;
+      background: rgba(255,255,255,.72);
+      box-shadow: 0 25px 70px rgba(104, 61, 100, .16);
+      backdrop-filter: blur(12px);
+    }
+
+    .tiny {
+      margin: 0 0 10px;
+      font-size: clamp(15px, 2vw, 20px);
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      font-weight: 800;
+      color: #b15b8d;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(70px, 14vw, 145px);
+      line-height: .9;
+      letter-spacing: -.07em;
+      font-weight: 950;
+      background: linear-gradient(135deg, #ff5f9e, #9b72ff 55%, #4fb9ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 8px 30px rgba(190, 91, 160, .14);
+    }
+
+    .cake {
+      margin-top: 28px;
+      font-size: clamp(48px, 7vw, 72px);
+      animation: bounce 1.8s ease-in-out infinite;
+    }
+
+    .subtitle {
+      margin: 18px 0 0;
+      font-size: clamp(18px, 3vw, 25px);
+      font-weight: 700;
+      color: #654f70;
+    }
+
+    .confetti {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    .piece {
+      position: absolute;
+      width: 10px;
+      height: 22px;
+      border-radius: 3px;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .p1 { left: 4%; top: 15%; transform: rotate(25deg); background:#ff6f91; }
+    .p2 { left: 15%; top: 72%; transform: rotate(-30deg); background:#7c83ff; animation-delay:.6s; }
+    .p3 { left: 27%; top: 7%; transform: rotate(55deg); background:#ffc857; animation-delay:1s; }
+    .p4 { right: 13%; top: 12%; transform: rotate(-25deg); background:#56c596; animation-delay:.3s; }
+    .p5 { right: 5%; top: 58%; transform: rotate(35deg); background:#ff7eb6; animation-delay:1.3s; }
+    .p6 { right: 23%; bottom: 5%; transform: rotate(-50deg); background:#8c7bff; animation-delay:.8s; }
+    .p7 { left: 6%; bottom: 15%; transform: rotate(65deg); background:#ffb84d; animation-delay:1.5s; }
+    .p8 { right: 34%; top: 4%; transform: rotate(15deg); background:#4bbcff; animation-delay:1.8s; }
+
+    .balloon {
+      position: absolute;
+      width: 58px;
+      height: 70px;
+      border-radius: 50% 50% 45% 45%;
+      opacity: .82;
+    }
+    .balloon::after {
+      content:"";
+      position:absolute;
+      width:1px;
+      height:95px;
+      background:#8f8295;
+      left:50%;
+      top:68px;
+    }
+    .b1 { left: 3%; top: 28%; background:#ff8caf; transform:rotate(-8deg); }
+    .b2 { right: 2%; top: 30%; background:#8c85ff; transform:rotate(8deg); }
+
+    @keyframes bounce {
+      0%,100% { transform: translateY(0) rotate(-2deg); }
+      50% { transform: translateY(-10px) rotate(2deg); }
+    }
+    @keyframes float {
+      0%,100% { translate: 0 0; }
+      50% { translate: 0 -18px; }
+    }
+
+    @media (max-width: 600px) {
+      .scene { min-height: auto; }
+      .card { padding: 55px 25px; }
+      .balloon { transform: scale(.7); }
+    }
+  
+    .instructions {
+      position: relative;
+      z-index: 4;
+      width: min(700px, 90%);
+      margin: 28px auto 0;
+      padding: 24px 28px;
+      text-align: left;
+      border-radius: 22px;
+      background: rgba(255,255,255,.82);
+      border: 2px solid rgba(255,255,255,.95);
+      box-shadow: 0 15px 40px rgba(104, 61, 100, .10);
+      color: #5d4d67;
+      font-size: 14px;
+      line-height: 1.6;
+      backdrop-filter: blur(10px);
+    }
+
+    .instructions h2 {
+      margin: 0 0 8px;
+      color: #9b5b8b;
+      font-size: 21px;
+    }
+
+    .instructions p { margin: 7px 0; }
+    .instructions ol { margin: 10px 0 12px; padding-left: 22px; }
+    .instructions li { margin: 5px 0; }
+
+    .instructions a {
+      color: #8065d8;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .instructions code {
+      padding: 2px 6px;
+      border-radius: 6px;
+      background: #f4edf5;
+      color: #654f70;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 12px;
+    }
+
+    .commands {
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: #faf5fa;
+    }
+
+  </style>
+</head>
+<body>
+  <main class="scene">
+    <div class="confetti" aria-hidden="true">
+      <span class="piece p1"></span><span class="piece p2"></span>
+      <span class="piece p3"></span><span class="piece p4"></span>
+      <span class="piece p5"></span><span class="piece p6"></span>
+      <span class="piece p7"></span><span class="piece p8"></span>
+      <span class="balloon b1"></span><span class="balloon b2"></span>
+    </div>
+
+    <section class="card">
+      <p class="tiny">Today is your day</p>
+      <h1>HBD JUG</h1>
+      <div class="cake">🎂 🎈 ✨</div>
+      <p class="subtitle">Hope you have a ridiculously good one.</p>
+    </section>
+
+
+    <section class="instructions">
+      <h2>Want to change this?</h2>
+      <p>
+        This page is hosted in
+        <a href="https://github.com/kantisonnathi/kantisonnathi.github.io/tree/master" target="_blank" rel="noopener">
+          kantisonnathi.github.io
+        </a>.
+      </p>
+      <ol>
+        <li>Clone the repo:
+          <code>git clone https://github.com/kantisonnathi/kantisonnathi.github.io.git</code>
+        </li>
+        <li>Create a branch:
+          <code>git checkout -b update-hbd-jug</code>
+        </li>
+        <li>Edit <code>jug-bday.html</code> to change the text, styling, animations, etc.</li>
+        <li>For automatic redirects, refer to <code>makam-playlist.html</code> as an example.</li>
+        <li>Commit and push your changes, then open a PR against <code>master</code>. The PR must be reviewed and approved by Kanti before it can be merged.</li>
+      </ol>
+      <p class="commands">
+        <code>git add .</code><br>
+        <code>git commit -m "Update HBD JUG page"</code><br>
+        <code>git push -u origin update-hbd-jug</code>
+      </p>
+    </section>
+
+  </main>
+</body>
+</html>
